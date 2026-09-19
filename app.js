@@ -47,13 +47,18 @@
     document.getElementById("error-banner").classList.add("hidden");
   }
 
-  function api(path) {
+  function api(path, attempt) {
+    attempt = attempt || 0;
     return fetch(API_BASE + path, {
       headers: {
         "X-Telegram-Init-Data": initData,
         "Bypass-Tunnel-Reminder": "true"
       }
     }).then(function (resp) {
+      if (resp.status >= 500 && attempt < 3) {
+        return new Promise(function (r) { setTimeout(r, 600 * (attempt + 1)); })
+          .then(function () { return api(path, attempt + 1); });
+      }
       if (!resp.ok) {
         return resp.json().then(function (data) {
           var msg = (data && data.detail) || ("Ошибка " + resp.status);
@@ -61,6 +66,12 @@
         });
       }
       return resp.json();
+    }, function (netErr) {
+      if (attempt < 3) {
+        return new Promise(function (r) { setTimeout(r, 600 * (attempt + 1)); })
+          .then(function () { return api(path, attempt + 1); });
+      }
+      throw netErr;
     });
   }
 
