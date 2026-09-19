@@ -7,6 +7,9 @@
     tg.ready();
     tg.setHeaderColor && tg.setHeaderColor("#0f1115");
     tg.setBackgroundColor && tg.setBackgroundColor("#0f1115");
+    if (tg.colorScheme) {
+      document.body.classList.toggle("light", tg.colorScheme === "light");
+    }
   }
 
   var initData = tg ? tg.initData : "";
@@ -91,16 +94,21 @@
     document.getElementById("n-assigned").textContent = fmtDate(n.assigned_at);
     document.getElementById("n-score").textContent = n.rarity_score;
     var rarityEl = document.getElementById("n-rarity");
-    rarityEl.style.color = n.rarity === "legendary" ? "#ffd54a"
+    var color = n.rarity === "legendary" ? "#ffd54a"
       : n.rarity === "epic" ? "#c084fc"
       : n.rarity === "rare" ? "#5b9dff"
       : "var(--muted)";
+    rarityEl.style.color = color;
+    rarityEl.style.backgroundColor = color + "1a";
+    rarityEl.style.border = "1px solid " + color + "55";
+    rarityEl.style.borderRadius = "999px";
+    rarityEl.style.padding = "5px 14px";
   }
 
   function renderHistory(items) {
     var list = document.getElementById("history-list");
     if (!items || !items.length) {
-      list.innerHTML = '<div class="card"><p style="margin:0;color:var(--muted)">История пуста</p></div>';
+      list.innerHTML = '<div class="empty-note"><span class="e-ico">🗂️</span>История пуста — получите первый номер!</div>';
       return;
     }
     list.innerHTML = items.map(function (it) {
@@ -122,7 +130,7 @@
     document.getElementById("s-balance").textContent = s.balance;
     var list = document.getElementById("stars-list");
     if (!s.transactions || !s.transactions.length) {
-      list.innerHTML = '<div class="card"><p style="margin:0;color:var(--muted)">Операций пока нет</p></div>';
+      list.innerHTML = '<div class="empty-note"><span class="e-ico">✨</span>Операций пока нет</div>';
       return;
     }
     list.innerHTML = s.transactions.map(function (tx) {
