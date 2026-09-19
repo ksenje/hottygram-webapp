@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>HottyGram</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="logo">🔥</div>
+    <h1>HottyGram</h1>
+    <span class="htg-badge" id="htgBadge">—</span>
+  </header>
+
+  <main>
+    <!-- Профиль -->
+    <section class="tab-panel active" id="panel-profile">
+      <h2>👤 Профиль</h2>
+      <div class="card">
+        <div class="row"><span>🆔 HTG ID</span><b id="p-htg">—</b></div>
+        <div class="row"><span>📱 Telegram ID</span><b id="p-tg">—</b></div>
+        <div class="row"><span>📞 Текущий номер</span><b id="p-number">—</b></div>
+        <div class="row"><span>⭐ HTG Stars</span><b id="p-stars">0</b></div>
+        <div class="row"><span>📱 Номеров получено</span><b id="p-count">0</b></div>
+        <div class="row"><span>📅 Регистрация</span><b id="p-created">—</b></div>
+      </div>
+    </section>
+
+    <!-- Мой номер -->
+    <section class="tab-panel" id="panel-number">
+      <h2>📞 Мой номер</h2>
+      <div class="card big-number" id="n-card">
+        <div class="rarity" id="n-rarity">—</div>
+        <div class="phone" id="n-phone">—</div>
+        <div class="row"><span>Получен</span><b id="n-assigned">—</b></div>
+        <div class="row"><span>Редкость (score)</span><b id="n-score">—</b></div>
+      </div>
+    </section>
+
+    <!-- Мои номера -->
+    <section class="tab-panel" id="panel-numbers">
+      <h2>📱 Мои номера</h2>
+      <div id="history-list"></div>
+    </section>
+
+    <!-- HTG Stars -->
+    <section class="tab-panel" id="panel-stars">
+      <h2>⭐ HTG Stars</h2>
+      <div class="card balance-card">
+        <div class="balance" id="s-balance">0</div>
+        <div class="balance-label">HTG Stars</div>
+      </div>
+      <h3>Последние операции</h3>
+      <div id="stars-list"></div>
+    </section>
+
+    <!-- Магазин -->
+    <section class="tab-panel" id="panel-shop">
+      <h2>🛒 Магазин</h2>
+      <div class="card">
+        <p style="margin:0">Магазин цифровых сервисов HottyGram появится в следующем обновлении.</p>
+      </div>
+    </section>
+
+    <div id="error-banner" class="banner hidden"></div>
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab active" data-tab="profile">👤 Профиль</button>
+    <button class="tab" data-tab="number">📞 Номер</button>
+    <button class="tab" data-tab="numbers">📱 История</button>
+    <button class="tab" data-tab="stars">⭐ Stars</button>
+    <button class="tab" data-tab="shop">🛒 Магазин</button>
+  </nav>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
